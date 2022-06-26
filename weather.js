@@ -38,6 +38,27 @@ const getWeatherDataFromApi = async () => {
 
     let iconUrl = `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
 
+
+    //! daha önceden bakıp ekrana yazdırdığımız şehir kartını tekrar sorgularsak ekrana ikinci kez yazdırmasın diye engelleme yapıyoruz..
+
+    //* forEach => array ve nodeList lerde kullanılabilir.
+    //* filter, map, reduce => sadece array lerde kullanılır..
+    
+    const cityListItems = list.querySelectorAll(".city");
+    const cityListItemsArray = Array.from(cityListItems);
+    if (cityListItemsArray.length > 0) {
+        const filteredArray = cityListItemsArray.filter(cityCard => cityCard.querySelector("span").innerText == name);
+        if (filteredArray.length > 0) {
+            msg.innerText = `You have the weather for ${name}. Please search for another city 😸...`;
+            setTimeout(()=>{
+                msg.innerText = '';
+            }, 5000);
+            form.reset();
+            return;
+        }
+    }
+
+
     const createdLi = document.createElement("li");
     createdLi.classList.add("city");
     const createdLiInnerHTML = `<h2 class="city-name" data-name="${name}, ${
@@ -54,7 +75,12 @@ const getWeatherDataFromApi = async () => {
     
     createdLi.innerHTML = createdLiInnerHTML;
     list.prepend(createdLi);
-  } catch (error) {}
+  } catch (error) {
+    msg.innerText = error;
+    setTimeout(()=>{
+        msg.innerText='';
+    }, 5000);
+  }
 
   form.reset(); //!İnputun içini temizlemek için daha güzel bir yöntem. Form tag inin bir metodu.
 };
