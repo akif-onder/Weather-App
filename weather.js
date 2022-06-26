@@ -3,7 +3,7 @@ const input = document.querySelector(".top-banner input");
 const msg = document.querySelector("span.msg");
 const list = document.querySelector(".ajax-section .cities");
 
-localStorage.setItem("apiKey", "d75eb6b9a52b6f1c9041643de2ce0b54");
+localStorage.setItem("apiKey", "#");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault(); //! submitin default özelliği olarak, basıldığında sayfayı yenileyor. bunu önlemek için prevent default kullanıyoruz.
@@ -43,7 +43,7 @@ const getWeatherDataFromApi = async () => {
 
     //* forEach => array ve nodeList lerde kullanılabilir.
     //* filter, map, reduce => sadece array lerde kullanılır..
-    
+
     const cityListItems = list.querySelectorAll(".city");
     const cityListItemsArray = Array.from(cityListItems);
     if (cityListItemsArray.length > 0) {
